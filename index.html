@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>사진 배경 웨이브 계산기</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #111;
+        margin: 0;
+    }
+    .calculator {
+        background-color: #222;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    }
+    .display {
+        width: 280px;
+        height: 50px;
+        font-size: 24px;
+        text-align: right;
+        padding: 10px;
+        margin-bottom: 20px;
+        background-color: #333;
+        border-radius: 5px;
+        border: none;
+        color: white;
+    }
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    /* 버튼 기본 스타일 */
+    .button {
+        position: relative;
+        font-size: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        color: white;
+        overflow: hidden;
+        user-select: none;
+        box-shadow: 0 0 10px rgba(255,255,255,0.3);
+        transition: transform 0.2s ease;
+        background-color: transparent;
+    }
+    .button:active {
+        transform: scale(0.9);
+        box-shadow: 0 0 20px rgba(255,255,255,0.8);
+    }
+
+    /* 배경 이미지와 웨이브 효과용 가상요소 */
+    .button::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-image: url('ff68aca3-cbd8-4dbf-8ad5-25cdea1c00c7.png');
+        background-size: cover;
+        background-position: center;
+        filter: brightness(0.5);
+        z-index: 0;
+        border-radius: 8px;
+    }
+
+    .button::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(270deg,
+            rgba(255, 0, 0, 0.4),
+            rgba(255, 154, 0, 0.4),
+            rgba(208, 222, 33, 0.4),
+            rgba(79, 220, 74, 0.4),
+            rgba(63, 218, 216, 0.4),
+            rgba(47, 201, 226, 0.4),
+            rgba(28, 127, 238, 0.4),
+            rgba(95, 21, 242, 0.4),
+            rgba(186, 12, 248, 0.4),
+            rgba(251, 7, 217, 0.4)
+        );
+        background-size: 1400% 1400%;
+        animation: rainbow-wave 10s linear infinite;
+        border-radius: 8px;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* 버튼 글자 z-index */
+    .button span {
+        position: relative;
+        z-index: 2;
+    }
+
+    .button-clear {
+        background-color: #ff4c4c;
+        filter: none;
+        box-shadow: 0 0 15px #ff0000;
+    }
+    .button-clear::before,
+    .button-clear::after {
+        display: none;
+    }
+
+    .button-equal {
+        background-color: #00cc00;
+        filter: none;
+        box-shadow: 0 0 15px #00cc00;
+    }
+    .button-equal::before,
+    .button-equal::after {
+        display: none;
+    }
+
+    @keyframes rainbow-wave {
+        0%{background-position:0% 50%;}
+        50%{background-position:100% 50%;}
+        100%{background-position:0% 50%;}
+    }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" id="display" class="display" value="0" disabled />
+    <div class="buttons">
+        <button class="button button-clear" onclick="clearDisplay()"><span>C</span></button>
+        <button class="button" onclick="appendNumber('7')"><span>7</span></button>
+        <button class="button" onclick="appendNumber('8')"><span>8</span></button>
+        <button class="button" onclick="appendNumber('9')"><span>9</span></button>
+        <button class="button" onclick="appendOperator('/')"><span>/</span></button>
+        <button class="button" onclick="appendNumber('4')"><span>4</span></button>
+        <button class="button" onclick="appendNumber('5')"><span>5</span></button>
+        <button class="button" onclick="appendNumber('6')"><span>6</span></button>
+        <button class="button" onclick="appendOperator('*')"><span>*</span></button>
+        <button class="button" onclick="appendNumber('1')"><span>1</span></button>
+        <button class="button" onclick="appendNumber('2')"><span>2</span></button>
+        <button class="button" onclick=
